@@ -1,0 +1,8 @@
+.button-bar {
+    float: right;
+    list-style: none;
+}
+
+.button-bar>li {
+    display: inline-block;
+}
