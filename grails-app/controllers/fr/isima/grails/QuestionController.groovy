@@ -1,7 +1,8 @@
 package fr.isima.grails
 
-import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+
+import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
 class QuestionController {
@@ -10,7 +11,7 @@ class QuestionController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond questions:Question.list(params), model:[questionCount: Question.count()]
+        respond questions: Question.list(params), model: [questionCount: Question.count()]
     }
 
     def show(Question question) {
@@ -31,11 +32,11 @@ class QuestionController {
 
         if (question.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond question.errors, view:'create'
+            respond question.errors, view: 'create'
             return
         }
 
-        question.save flush:true
+        question.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -60,18 +61,18 @@ class QuestionController {
 
         if (question.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond question.errors, view:'edit'
+            respond question.errors, view: 'edit'
             return
         }
 
-        question.save flush:true
+        question.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'question.label', default: 'Question'), question.id])
                 redirect question
             }
-            '*'{ respond question, [status: OK] }
+            '*' { respond question, [status: OK] }
         }
     }
 
@@ -84,14 +85,14 @@ class QuestionController {
             return
         }
 
-        question.delete flush:true
+        question.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'question.label', default: 'Question'), question.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -101,7 +102,7 @@ class QuestionController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }
