@@ -15,7 +15,7 @@
 
 <body>
 <!-- Header bar -->
-<g:render template="/layouts/headerBar"/>
+<g:render template="/templates/headerBar"/>
 
 <!-- Main content -->
 <section class="content">

@@ -15,14 +15,14 @@
 
 <body>
 <!-- Header bar -->
-<g:render template="/layouts/headerBar"/>
+<g:render template="/templates/headerBar"/>
 
 <!-- Main content -->
 <section class="content">
     <div class="row">
         <!-- Question -->
         <section class="col-md-8 col-md-offset-1">
-            <g:form controller="question" method="${!question ? 'POST' : 'PUT'}" id="${question?.id}">
+            <g:form controller="question" method="PUT" id="${question?.id}">
                 <!-- Content body -->
                 <div class="content-body">
                     <!-- Title -->
@@ -43,7 +43,7 @@
                 </div>
                 <!-- /Tags bar -->
 
-                <g:actionSubmit action="${!question ? 'save' : 'update'}"
+                <g:actionSubmit action="update"
                                 value="${message(code: 'question.edit.save.label')}" class="btn btn-primary"/>
             </g:form>
         </section>

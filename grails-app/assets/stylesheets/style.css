@@ -6,6 +6,13 @@ h1 {
     color: #222426;
 }
 
+h2 {
+    color: black;
+    font-size: 18px;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
 hr {
     border-top: 1px solid #e5e5e5;
 }
@@ -53,13 +60,13 @@ body {
 
 .arrow-up {
     cursor: pointer;
-    margin-left: 26px;
+    margin-left: 21px;
 }
 
 .arrow-down {
     cursor: pointer;
     transform: rotate(180deg);
-    margin-left: 26px;
+    margin-left: 21px;
 }
 
 .rate {
@@ -72,7 +79,7 @@ body {
 }
 
 .check {
-    margin-left: 28px;
+    margin-left: 23px;
     margin-top: 25px;
 }
 

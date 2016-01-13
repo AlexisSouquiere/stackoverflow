@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<g:render template="/layouts/headerBar"/>
+<g:render template="/templates/headerBar"/>
 
     <!-- Main content -->
     <section class="content">
@@ -24,7 +24,7 @@
                 <tr>
                     <td>0 <g:message code="question.index.votes"/></td>
                     <td>0 <g:message code="question.index.answers"/></td>
-                    <td>1 <g:message code="question.index.views"/></td>
+                    <td>${question.views} <g:message code="question.index.views"/></td>
                     <td><g:link resource="/question" action="show" id="${question.id}">${question.title}</g:link></td>
                 </tr>
             </g:each>

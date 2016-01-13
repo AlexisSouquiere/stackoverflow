@@ -7,12 +7,14 @@ import static org.springframework.http.HttpStatus.*
 @Transactional(readOnly = true)
 class QuestionController {
 
-    static allowedMethods = [save  : "POST",
-                             update: "PUT",
-                             delete: "DELETE",
-                             show  : "GET",
-                             edit  : "GET",
-                             close : "PUT"
+    static allowedMethods = [save     : "POST",
+                             update   : "PUT",
+                             delete   : "DELETE",
+                             show     : "GET",
+                             edit     : "GET",
+                             close    : "PUT",
+
+                             addAnswer: "POST"
     ]
 
     def index(Integer max) {
@@ -20,7 +22,10 @@ class QuestionController {
         respond questions: Question.list(params), model: [questionCount: Question.count()]
     }
 
+    @Transactional
     def show(Question question) {
+        question.views++;
+        question.save(flush: true);
         respond question
     }
 
@@ -33,8 +38,8 @@ class QuestionController {
         Question question = new Question(params)
         User user = new User()
         user.id = 1
+        question.views = 0
         question.isClosed = false
-        question.createdAt = new Date()
         question.user = user
 
         if (question == null) {
@@ -134,6 +139,20 @@ class QuestionController {
         }
     }
 
+    @Transactional
+    def addAnswer(Answer answer) {
+        if (answer.save(flush: true, failOnError: true)) {
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.created.message', args: [message(code: 'answer.label', default: 'Answer')])
+                    redirect action: "show", id: answer.question.id, model: [question: answer.question]
+                }
+                '*' { respond answer.question, [status: UPDATED] }
+            }
+        }
+
+    }
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {
@@ -143,4 +162,6 @@ class QuestionController {
             '*' { render status: NOT_FOUND }
         }
     }
+
+
 }

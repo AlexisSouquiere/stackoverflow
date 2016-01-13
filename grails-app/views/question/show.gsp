@@ -15,7 +15,7 @@
 
 <body>
 <!-- Header bar -->
-<g:render template="/layouts/headerBar"/>
+<g:render template="/templates/headerBar"/>
 
 <!-- Main content -->
 <section class="content">
@@ -23,60 +23,43 @@
     <hr/>
 
     <div class="row">
-        <!-- Rate bloc -->
-        <div class="rate-bloc col-md-1">
-            <asset:image src="/stackoverflow/arrow.png" class="arrow-up"/>
-            <strong class="rate">3</strong>
-            <asset:image src="/stackoverflow/arrow.png" class="arrow-down"/>
-            <asset:image src="/stackoverflow/check.png" class="check"/>
-        </div>
-        <!-- /Rate bloc -->
-
-        <!-- Question -->
-        <section class="col-md-8">
-            <!-- Content body -->
-            <div class="content-body">
-                ${question.description}
+        <section class="col-md-9">
+            <!-- Question -->
+            <div class="row">
+                <g:render template="/templates/item" model="${[item: question]}"/>
             </div>
-            <!-- /Content body -->
 
-            <!-- Tags bar -->
-            <div class="tags-bar">
-                <button class="tag">c#</button>
-                <button class="tag">declaration</button>
-                <button class="tag">literals</button>
-                <button class="tag">variable-declaration</button>
-            </div>
-            <!-- /Tags bar -->
+        <!-- Answers -->
+            <g:each var="answer" in="${question.answers}">
+                <div class="row">
+                    <hr/>
+                    <g:render template="/templates/item" model="${[item: answer]}"/>
+                </div>
+            </g:each>
 
-            <!-- Actions bar -->
-            <div class="actions-bar">
-                <!-- Edit -->
-                <g:link resource="/question" action="edit" id="${question.id}"><g:message
-                        code="question.show.edit"/></g:link>
-                <!-- Close -->
-                <g:if test="${!question.isClosed}">
-                    <g:form controller="question" id="${question.id}" method="PUT">
-                        <g:actionSubmit action="close" value="${message(code: 'question.show.close')}"/>
+            <hr/>
+
+            <!-- Your Answer -->
+            <div class="row">
+                <section class="col-md-12">
+                    <h2><g:message code="answer.add.title"/></h2>
+                    <g:form controller="question" method="POST">
+                        <g:textArea name="description" rows="5" cols="40" value=""/>
+                        <br/>
+                        <g:hiddenField name="question.id" value="${question.id}"/>
+                        <g:actionSubmit action="addAnswer" value="${message(code: 'answer.add.submit')}"
+                                        class="btn btn-primary"/>
                     </g:form>
-                </g:if>
-                <!-- Delete -->
-                <g:form controller="question" id="${question.id}" method="DELETE">
-                    <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
-                </g:form>
+                </section>
             </div>
+            <!-- /Your Answer -->
 
-            <div class="add-comment">
-                <g:link resource="/question" action="show" id="${question.id}"><g:message
-                        code="question.show.comment.add"/></g:link>
-            </div>
-            <!-- /Actions bar -->
 
+            <!-- /Main bloc -->
         </section>
-        <!-- /Question -->
 
         <!-- Rate bloc -->
-        <div class="right-bloc col-md-3">
+        <section class="right-bloc col-md-3">
             <table>
                 <tr>
                     <td>asked</td>
@@ -91,10 +74,13 @@
                     <td>today</td>
                 </tr>
             </table>
-        </div>
+        </section>
         <!-- /Rate bloc -->
     </div>
 </section>
+<script type="text/javascript">
+    CKEDITOR.replace('description');
+</script>
 <!-- /.content -->
 </body>
 </html>
