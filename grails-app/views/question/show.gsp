@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>${question.title} - StackOverflow</title>
+    <title>${question.title} - <g:message code="stackoverflow.title"/></title>
 </head>
 
 <body>
@@ -51,14 +51,24 @@
 
             <!-- Actions bar -->
             <div class="actions-bar">
-                <g:link resource="/question" action="show" id="${question.id}">share</g:link>
-                <g:link resource="/question" action="show" id="${question.id}">edit</g:link>
-                <g:link resource="/question" action="show" id="${question.id}">close</g:link>
-                <g:link resource="/question" action="show" id="${question.id}">delete</g:link>
+                <!-- Edit -->
+                <g:link resource="/question" action="edit" id="${question.id}"><g:message
+                        code="question.show.edit"/></g:link>
+                <!-- Close -->
+                <g:if test="${!question.isClosed}">
+                    <g:form controller="question" id="${question.id}" method="PUT">
+                        <g:actionSubmit action="close" value="${message(code: 'question.show.close')}"/>
+                    </g:form>
+                </g:if>
+                <!-- Delete -->
+                <g:form controller="question" id="${question.id}" method="DELETE">
+                    <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
+                </g:form>
             </div>
 
             <div class="add-comment">
-                <g:link resource="/question" action="show" id="${question.id}">add comment</g:link>
+                <g:link resource="/question" action="show" id="${question.id}"><g:message
+                        code="question.show.comment.add"/></g:link>
             </div>
             <!-- /Actions bar -->
 

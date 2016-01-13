@@ -9,6 +9,7 @@ class Question {
     static constraints = {
         title(nullable: false, blank: false, maxSize: 255)
         description(nullable: false, blank: false, maxSize: 2000)
+        isClosed(nullable: false, blank: false)
     }
 
     static belongsTo = [user: User]

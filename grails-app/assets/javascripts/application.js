@@ -10,6 +10,7 @@
 //= require_self
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require AdminLTE/dist/js/app.min.js
+//= require AdminLTE/plugins/ckeditor/ckeditor.js
 
 if (typeof jQuery !== 'undefined') {
     (function ($) {

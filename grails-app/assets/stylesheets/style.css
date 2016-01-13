@@ -53,11 +53,13 @@ body {
 
 .arrow-up {
     cursor: pointer;
+    margin-left: 26px;
 }
 
 .arrow-down {
     cursor: pointer;
     transform: rotate(180deg);
+    margin-left: 26px;
 }
 
 .rate {
@@ -70,7 +72,7 @@ body {
 }
 
 .check {
-    margin-left: 2px;
+    margin-left: 28px;
     margin-top: 25px;
 }
 
@@ -98,9 +100,23 @@ body {
     margin-top: 15px;
 }
 
+.actions-bar form {
+    display: inline;
+}
+
+.actions-bar input {
+    background: none;
+    border: 0;
+    color: #888;
+}
+
 .actions-bar a, .add-comment a {
     padding: 0 3px 2px 3px;
     color: #888;
+}
+
+.actions-bar input:hover, .actions-bar a:hover {
+    text-decoration: underline;
 }
 
 .add-comment {
