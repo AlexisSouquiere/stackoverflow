@@ -19,14 +19,9 @@
     <!-- Main content -->
     <section class="content">
         <h1><g:message code="question.page.index.title"/></h1>
-        <table class="table">
+        <table class="table table-responsive">
             <g:each var="question" in="${questions}">
-                <tr>
-                    <td>0 <g:message code="question.index.votes"/></td>
-                    <td>0 <g:message code="question.index.answers"/></td>
-                    <td>${question.views} <g:message code="question.index.views"/></td>
-                    <td><g:link resource="/question" action="show" id="${question.id}">${question.title}</g:link></td>
-                </tr>
+                <g:render template="/question/listItem" model="${[question: question]}"/>
             </g:each>
         </table>
     </section>

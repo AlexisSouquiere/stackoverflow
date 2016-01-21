@@ -14,64 +14,47 @@
 </head>
 
 <body>
-<!-- Header bar -->
-<g:render template="/templates/headerBar"/>
+    <%-- Header bar --%>
+    <g:render template="/templates/headerBar"/>
 
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <!-- Question -->
-        <section class="col-md-8 col-md-offset-1">
-            <g:form controller="question" method="POST" id="${question.id}">
-                <!-- Content body -->
-                <div class="content-body">
-                    <!-- Title -->
+    <%-- Main content --%>
+    <section class="content question-create">
+        <div class="row">
+            <%-- Question --%>
+            <section class="col-md-10 col-md-offset-1">
+                <g:form controller="question" method="POST" id="${question?.id}" class="form-horizontal">
+                    <%-- Title --%>
                     <div class="form-group">
-                        <label for="title"><g:message code="question.title.label"/></label>
-                        <g:field type="text" name="title" value=""/>
+                        <label for="title" class="col-sm-1 control-label"><g:message code="question.title.label"/></label>
+                        <div class="col-sm-11">
+                            <g:field type="text" name="title" value="${question?.title}" class="form-control"/>
+                        </div>
                     </div>
-                    <!-- Description -->
+                    <%-- Description --%>
                     <div class="form-group">
-                        <g:textArea name="description" rows="5" cols="40" value=""/>
+                        <g:textArea name="description" rows="20" value="${question?.description}" class="wysihtml5" />
                     </div>
 
-                </div>
-                <!-- /Content body -->
+                    <%-- Tags bar --%>
+                    <div class="form-group">
+                        <label for="tags" class="col-sm-1 control-label"><g:message code="question.tags.label"/></label>
+                        <div class="col-sm-11">
+                            <g:select name="tags" id="tags" from="${allTags}" optionKey="id" optionValue="label" multiple="true" class="form-control select2" />
+                        </div>
+                    </div>
+                    <%-- /Tags bar --%>
 
-                <!-- Tags bar -->
-                <div class="tags-bar form-group">
-                </div>
-                <!-- /Tags bar -->
-
-                <g:actionSubmit action="save" value="${message(code: 'question.edit.save.label')}"
-                                class="btn btn-primary"/>
-            </g:form>
-        </section>
-        <!-- /Question -->
-
-        <!-- Rate bloc -->
-        <div class="right-bloc col-md-3">
-            <table>
-                <tr>
-                    <td>asked</td>
-                    <td>1 year ago</td>
-                </tr>
-                <tr>
-                    <td>viewed</td>
-                    <td>662 times</td>
-                </tr>
-                <tr>
-                    <td>active</td>
-                    <td>today</td>
-                </tr>
-            </table>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <g:actionSubmit action="save" value="${message(code: 'question.edit.save.label')}"
+                                                              class="btn btn-primary"/>
+                        </div>
+                    </div>
+                </g:form>
+            </section>
+            <%-- /Question --%>
         </div>
-        <!-- /Rate bloc -->
-    </div>
-</section>
-<script type="text/javascript">
-    CKEDITOR.replace('description');
-</script>
-<!-- /.content -->
+    </section>
+    <%-- /Main content --%>
 </body>
 </html>

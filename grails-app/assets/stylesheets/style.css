@@ -15,6 +15,7 @@ h2 {
 
 hr {
     border-top: 1px solid #e5e5e5;
+    margin-top: 0;
 }
 
 body {
@@ -26,6 +27,14 @@ body {
 
 .content-wrapper, .right-side {
     background-color: white;
+}
+
+.right-bloc td:first-child{
+    color: #999;
+}
+
+.right-bloc td{
+    padding: 10px;
 }
 
 .button-bar {
@@ -54,19 +63,17 @@ body {
     width: 200px;
 }
 
-.rate-bloc {
-    padding-left: 45px;
+.rate-bloc form {
+    text-align: center;
 }
 
 .arrow-up {
     cursor: pointer;
-    margin-left: 21px;
 }
 
 .arrow-down {
     cursor: pointer;
     transform: rotate(180deg);
-    margin-left: 21px;
 }
 
 .rate {
@@ -103,6 +110,14 @@ body {
     padding: 6px;
 }
 
+.select2-selection__choice {
+    background-color: #e1ecf4 !important;
+    color: #39739d !important;
+    border: 1px solid #e1ecf4 !important;
+    padding: 6px !important;
+    border-radius: 0 !important;
+}
+
 .actions-bar {
     margin-top: 15px;
 }
@@ -129,4 +144,55 @@ body {
 .add-comment {
     margin-top: 15px;
     text-decoration: underline;
+}
+
+.tag-cell {
+    text-align: center;
+
+}
+
+.tag-cell .tag {
+    font-size: 16px;
+    padding :10px;
+}
+
+.row.tags {
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.question-create {
+    margin-top: 30px;
+}
+
+.question-create .col-sm-1 {
+    padding-left: 0 !important;
+    text-align: left !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-radius: 0 !important;
+    border-color: #d2d6de !important;
+}
+
+.wysihtml5 {
+    width: 100%;
+    border-color: #d2d6de !important;
+}
+
+.question-link {
+    display: block;
+}
+.date-author {
+    display: inline;
+    float: right;
+}
+
+.table .tags-bar {
+    margin-top: 5px;
+    display: inline;
+}
+
+.center-text {
+    text-align: center;
 }

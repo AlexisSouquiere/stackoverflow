@@ -10,14 +10,16 @@
 //= require_self
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require AdminLTE/dist/js/app.min.js
-//= require AdminLTE/plugins/ckeditor/ckeditor.js
+//= require AdminLTE/plugins/select2/select2.full.min.js
+//= require AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js
 
-if (typeof jQuery !== 'undefined') {
-    (function ($) {
-        $('#spinner').ajaxStart(function () {
-            $(this).fadeIn();
-        }).ajaxStop(function () {
-            $(this).fadeOut();
-        });
-    })(jQuery);
-}
+$( document ).ready(function() {
+    /* Use WYSIHTML5 */
+    $('.wysihtml5').wysihtml5();
+
+    /* Use Select2 for tagging */
+    $('.select2').select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
+    });
+});

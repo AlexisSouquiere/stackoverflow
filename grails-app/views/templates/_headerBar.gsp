@@ -12,17 +12,22 @@
     </g:if>
     <asset:image src="/stackoverflow/so-logo.png" class="logo"/>
     <div class="button-bar">
-        <button class="btn btn-default btn-flat btn-active">
-            <g:link resource="/question" action="index"><g:message code="stackoverflow.header.bar.questions"/></g:link>
-        </button>
-        <button class="btn btn-default btn-flat btn-inactive"><g:message code="stackoverflow.header.bar.tags"/></button>
-        <button class="btn btn-default btn-flat btn-inactive"><g:message
-                code="stackoverflow.header.bar.users"/></button>
-        <button class="btn btn-default btn-flat btn-inactive"><g:message
-                code="stackoverflow.header.bar.badges"/></button>
+        <g:link resource="/question" action="index">
+            <button class="btn btn-default btn-flat btn-active"><g:message code="stackoverflow.header.bar.questions"/></button>
+        </g:link>
+        <g:link resource="/tag" action="index">
+            <button class="btn btn-default btn-flat btn-inactive"><g:message code="stackoverflow.header.bar.tags"/></button>
+        </g:link>
         <button class="btn btn-default btn-flat btn-inactive">
-            <g:link resource="/question" action="create"><g:message
-                    code="stackoverflow.header.bar.question.add"/></g:link>
+            <g:message
+                code="stackoverflow.header.bar.users"/>
         </button>
+        <button class="btn btn-default btn-flat btn-inactive">
+            <g:message
+                code="stackoverflow.header.bar.badges"/>
+        </button>
+        <g:link resource="/question" action="create">
+            <button class="btn btn-default btn-flat btn-inactive"><g:message code="stackoverflow.header.bar.question.add"/></button>
+        </g:link>
     </div>
 </section>

@@ -26,32 +26,28 @@
         <section class="col-md-9">
             <!-- Question -->
             <div class="row">
-                <g:render template="/templates/item" model="${[item: question]}"/>
+                <g:render template="/question/item" model="${[item: question]}"/>
             </div>
 
-        <!-- Answers -->
+            <!-- Answers -->
             <g:each var="answer" in="${question.answers}">
                 <div class="row">
                     <hr/>
-                    <g:render template="/templates/item" model="${[item: answer]}"/>
+                    <g:render template="/answer/item" model="${[item: answer]}"/>
                 </div>
             </g:each>
-
-            <hr/>
+            <!-- /Answers -->
 
             <!-- Your Answer -->
-            <div class="row">
-                <section class="col-md-12">
-                    <h2><g:message code="answer.add.title"/></h2>
-                    <g:form controller="question" method="POST">
-                        <g:textArea name="description" rows="5" cols="40" value=""/>
-                        <br/>
-                        <g:hiddenField name="question.id" value="${question.id}"/>
-                        <g:actionSubmit action="addAnswer" value="${message(code: 'answer.add.submit')}"
-                                        class="btn btn-primary"/>
-                    </g:form>
-                </section>
-            </div>
+            <g:if test="${!question.isClosed}">
+                <hr/>
+                <div class="row">
+                    <section class="col-md-12">
+                        <h2><g:message code="answer.add.title"/></h2>
+                        <g:render template="/answer/create" model="${[question: question]}"/>
+                    </section>
+                </div>
+            </g:if>
             <!-- /Your Answer -->
 
 
@@ -60,27 +56,11 @@
 
         <!-- Rate bloc -->
         <section class="right-bloc col-md-3">
-            <table>
-                <tr>
-                    <td>asked</td>
-                    <td>1 year ago</td>
-                </tr>
-                <tr>
-                    <td>viewed</td>
-                    <td>662 times</td>
-                </tr>
-                <tr>
-                    <td>active</td>
-                    <td>today</td>
-                </tr>
-            </table>
+            <g:render template="/question/details" model="${[question: question]}"/>
         </section>
         <!-- /Rate bloc -->
     </div>
 </section>
-<script type="text/javascript">
-    CKEDITOR.replace('description');
-</script>
 <!-- /.content -->
 </body>
 </html>

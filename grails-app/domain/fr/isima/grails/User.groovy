@@ -14,5 +14,7 @@ class User {
         password(nullable: false, blank: false)
     }
 
-    static hasMany = [questions: Question]
+    static hasMany = [questions: Question,
+                      answers  : Answer,
+                      comments : Comment]
 }

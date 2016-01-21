@@ -7,19 +7,29 @@ import static org.springframework.http.HttpStatus.*
 @Transactional(readOnly = true)
 class QuestionController {
 
-    static allowedMethods = [save     : "POST",
-                             update   : "PUT",
-                             delete   : "DELETE",
-                             show     : "GET",
-                             edit     : "GET",
-                             close    : "PUT",
+    static allowedMethods = [save       : "POST",
+                             update     : "PUT",
+                             delete     : "DELETE",
+                             show       : "GET",
+                             edit       : "GET",
+                             close      : "PUT",
 
-                             addAnswer: "POST"
+                             addAnswer  : "POST",
+                             voteUp     : "PUT",
+                             voteDown   : "PUT",
+                             indexByTag : "GET"
     ]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond questions: Question.list(params), model: [questionCount: Question.count()]
+    }
+
+    def indexByTag(Integer id) {
+        Tag tag = Tag.get(id)
+
+        respond questions: Question.executeQuery('select q from Question q where :tag in elements(q.tags)', [tag: tag]),
+                model: [questionCount: Question.count(), tag: tag]
     }
 
     @Transactional
@@ -30,7 +40,7 @@ class QuestionController {
     }
 
     def create() {
-        respond new Question(params)
+        respond new Question(params), model : [allTags: Tag.listOrderByLabel()]
     }
 
     @Transactional
@@ -39,6 +49,7 @@ class QuestionController {
         User user = new User()
         user.id = 1
         question.views = 0
+        question.rate = 0
         question.isClosed = false
         question.user = user
 
@@ -68,7 +79,8 @@ class QuestionController {
     }
 
     def edit(Question question) {
-        respond question
+        respond question, model : [allTags: Tag.listOrderByLabel(),
+                                   selectedTags: question.tags]
     }
 
     @Transactional
@@ -141,6 +153,9 @@ class QuestionController {
 
     @Transactional
     def addAnswer(Answer answer) {
+        User user = new User()
+        user.id = 1
+        answer.user = user
         if (answer.save(flush: true, failOnError: true)) {
             request.withFormat {
                 form multipartForm {
@@ -150,7 +165,38 @@ class QuestionController {
                 '*' { respond answer.question, [status: UPDATED] }
             }
         }
+    }
 
+    @Transactional
+    def voteUp(Question question) {
+        vote(question, 1);
+    }
+
+    @Transactional
+    def voteDown(Question question) {
+        vote(question, -1);
+    }
+
+    def vote(Question question, int value) {
+        if (question == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        question.rate += value;
+
+        if (question.save(flush: true, failOnError: true)) {
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.vote.message', args: [message(code: 'question.label', default: 'Question')])
+                    redirect question
+                }
+                '*' { respond question, [status: UPDATED] }
+            }
+        } else {
+            redirect action: show, model: [question: question]
+        }
     }
 
     protected void notFound() {
