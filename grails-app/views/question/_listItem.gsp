@@ -13,8 +13,8 @@
         </div>
         <div class="date-author">
             <g:message code="home.page.question.item.dateauthor" args="${[formatDate(format:'dd/MM/yyyy',date:question.dateCreated),
-                                                                          formatDate(format:'H:m',date:question.dateCreated),
-                                                                          question.user.pseudo]}"/>
+                                                                          formatDate(format:'H:m',date:question.dateCreated)]}"/>
+            <g:link resource="/user" action="show" id="${question.user.id}">${question.user.pseudo}</g:link>
         </div>
     </td>
 </tr>

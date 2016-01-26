@@ -27,12 +27,14 @@ class Question {
 
     static mapping = {
         autoTimestamp true
+        comments sort: 'dateCreated'
     }
 
     static transients = ['hasBest']
 
     static belongsTo = [user: User]
 
-    static hasMany = [answers: Answer,
-                      tags   : Tag]
+    static hasMany = [answers : Answer,
+                      tags    : Tag,
+                      comments: Comment]
 }

@@ -132,7 +132,7 @@ body {
     color: #888;
 }
 
-.actions-bar a, .add-comment a {
+.actions-bar a {
     padding: 0 3px 2px 3px;
     color: #888;
 }
@@ -143,7 +143,15 @@ body {
 
 .add-comment {
     margin-top: 15px;
+    margin-bottom: 20px;
     text-decoration: underline;
+    padding: 0 3px 2px 3px;
+    color: #888;
+    cursor: pointer;
+}
+
+.comment-form {
+    display: none;
 }
 
 .tag-cell {
@@ -195,4 +203,33 @@ body {
 
 .center-text {
     text-align: center;
+}
+
+.comment-field {
+    width: 100%;
+}
+
+.comments-list {
+    margin-top: 20px;
+}
+
+.comments-list table {
+    width: 100%;
+}
+
+.comments-list tr {
+    border-top: 1px #d2d6de solid;
+    border-bottom: 1px #d2d6de solid;
+}
+
+.comments-list td {
+    padding: 5px;
+}
+
+.light-grey {
+    color: #888;
+}
+
+.indent {
+    margin-left: 20px;
 }

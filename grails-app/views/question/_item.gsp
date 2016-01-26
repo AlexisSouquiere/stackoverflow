@@ -43,9 +43,16 @@ ${raw(item.description)}
         </g:form>
     </div>
 
-    <div class="add-comment">
-        <g:link resource="/question" action="show" id="${question.id}"><g:message
-                code="question.show.comment.add"/></g:link>
+    <%-- Comments --%>
+    <div class="comments-list">
+        <g:render template="/comment/index" model="${[comments: question.comments]}" var="comments"/>
     </div>
+
+    <%-- Add comment --%>
+    <div class="add-comment">
+        <g:message code="question.show.comment.add"/>
+    </div>
+    <g:render template="/comment/create" model="${[question: question]}"/>
+
     <!-- /Actions bar -->
 </g:if>

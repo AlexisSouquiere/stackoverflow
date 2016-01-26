@@ -22,4 +22,10 @@ $( document ).ready(function() {
         tags: true,
         tokenSeparators: [',', ' '],
     });
+
+    /* Hide the "add comment" button and display the form */
+    $('.add-comment').click(function() {
+        $('.add-comment').hide();
+        $('.comment-form').show();
+    });
 });

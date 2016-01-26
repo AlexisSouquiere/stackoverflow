@@ -20,6 +20,8 @@ class QuestionController {
                              indexByTag : "GET"
     ]
 
+    QuestionService questionService;
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond questions: Question.list(params), model: [questionCount: Question.count()]
@@ -28,14 +30,13 @@ class QuestionController {
     def indexByTag(Integer id) {
         Tag tag = Tag.get(id)
 
-        respond questions: Question.executeQuery('select q from Question q where :tag in elements(q.tags)', [tag: tag]),
+        respond questions: questionService.getQuestionsByTagId(tag),
                 model: [questionCount: Question.count(), tag: tag]
     }
 
     @Transactional
     def show(Question question) {
-        question.views++;
-        question.save(flush: true);
+        questionService.incViews(question)
         respond question
     }
 

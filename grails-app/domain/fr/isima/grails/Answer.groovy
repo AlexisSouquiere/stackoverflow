@@ -1,5 +1,7 @@
 package fr.isima.grails
 
+import org.jsoup.Jsoup;
+
 class Answer {
     String description;
     Boolean isBest;
@@ -16,8 +18,13 @@ class Answer {
     static mapping = {
         autoTimestamp true
         sort dateCreated: "asc"
+        comments sort: 'dateCreated'
     }
 
     static belongsTo = [question: Question,
                         user    : User]
+
+    public String getDescriptionEscaped() {
+        return Jsoup.parse(description).text();
+    }
 }
