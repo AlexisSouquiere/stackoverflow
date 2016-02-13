@@ -20,7 +20,7 @@ class QuestionController {
                              indexByTag : "GET"
     ]
 
-    QuestionService questionService;
+    QuestionService questionService
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

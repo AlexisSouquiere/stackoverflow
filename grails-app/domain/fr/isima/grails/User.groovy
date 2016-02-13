@@ -1,20 +1,55 @@
 package fr.isima.grails
 
-class User {
-    String pseudo;
-    String description;
-    String email;
-    String password;
-    Date createdAt;
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
-    static constraints = {
-        pseudo(nullable: false, blank: false, maxSize: 50, unique: true)
-        description(nullable: false, blank: false, maxSize: 255)
-        email(nullable: false, blank: false, email: true)
-        password(nullable: false, blank: false)
-    }
+@EqualsAndHashCode(includes='username')
+@ToString(includes='username', includeNames=true, includePackage=false)
+class User implements Serializable {
 
-    static hasMany = [questions: Question,
-                      answers  : Answer,
-                      comments : Comment]
+	private static final long serialVersionUID = 1
+
+	transient springSecurityService
+
+	String username
+	String password
+	boolean enabled = true
+	boolean accountExpired
+	boolean accountLocked
+	boolean passwordExpired
+
+	User(String username, String password) {
+		this()
+		this.username = username
+		this.password = password
+	}
+
+	Set<Role> getAuthorities() {
+		UserRole.findAllByUser(this)*.role
+	}
+
+	def beforeInsert() {
+		encodePassword()
+	}
+
+	def beforeUpdate() {
+		if (isDirty('password')) {
+			encodePassword()
+		}
+	}
+
+	protected void encodePassword() {
+		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+	}
+
+	static transients = ['springSecurityService']
+
+	static constraints = {
+		username blank: false, unique: true
+		password blank: false
+	}
+
+	static mapping = {
+		password column: '`password`'
+	}
 }
