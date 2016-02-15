@@ -1,15 +1,19 @@
 import fr.isima.grails.Role
 import fr.isima.grails.User
+import fr.isima.grails.UserRole
 
 class BootStrap {
 
     def init = {
-        def adminRole = new Role('ROLE_ADMIN').save()
-        def userRole = new Role('ROLE_USER').save()
+        def adminRole = new Role('ROLE_ADMIN')
+        def userRole = new Role('ROLE_USER')
+        def userAdmin = new User('admin', 'admin')
 
-        def testUser = new User('alexis', 'alexis').save()
+        adminRole.save(flush: true)
+        userRole.save(flush: true)
+        userAdmin.save(flush: true)
 
-        UserRole.create testUser, adminRole
+        UserRole.create(userAdmin, adminRole, true)
 
         UserRole.withSession {
             it.flush()

@@ -3,6 +3,7 @@ package fr.isima.grails
 import grails.transaction.Transactional
 
 import static org.springframework.http.HttpStatus.*
+import grails.plugin.springsecurity.annotation.Secured
 
 @Transactional(readOnly = true)
 class QuestionController {
@@ -22,6 +23,7 @@ class QuestionController {
 
     QuestionService questionService
 
+    @Secured(['ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond questions: Question.list(params), model: [questionCount: Question.count()]
