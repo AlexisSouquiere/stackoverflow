@@ -24,10 +24,12 @@
                     code="stackoverflow.header.bar.users"/>
             </button>
         </sec:ifAnyGranted>
-        <button class="btn btn-default btn-flat btn-inactive">
-            <g:message
-                code="stackoverflow.header.bar.badges"/>
-        </button>
+        <g:link resource="/badge" action="index">
+            <button class="btn btn-default btn-flat btn-inactive">
+                <g:message
+                    code="stackoverflow.header.bar.badges"/>
+            </button>
+        </g:link>
         <g:link resource="/question" action="create">
             <button class="btn btn-default btn-flat btn-inactive"><g:message code="stackoverflow.header.bar.question.add"/></button>
         </g:link>

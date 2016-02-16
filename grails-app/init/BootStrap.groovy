@@ -1,3 +1,5 @@
+import fr.isima.grails.Badge
+import fr.isima.grails.EnumBadge
 import fr.isima.grails.Role
 import fr.isima.grails.User
 import fr.isima.grails.UserRole
@@ -19,6 +21,12 @@ class BootStrap {
             it.flush()
             it.clear()
         }
+
+        // Init badges
+        Badge badgeFirstQuestion = new Badge(['id': EnumBadge.FIRST_QUESTION.id, 'name': 'First Question !', 'description': 'Congratulation'])
+        Badge badgeFirstAnswer = new Badge(['id': EnumBadge.FIRST_ANSWER.id, 'name': 'First Answer !', 'description': 'Congratulation'])
+        badgeFirstQuestion.save(flush: true)
+        badgeFirstAnswer.save(flush: true)
 
         assert User.count() == 1
         assert Role.count() == 2

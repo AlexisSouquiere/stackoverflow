@@ -22,7 +22,7 @@
     <div class="row">
         <%-- Question --%>
         <section class="col-md-10 col-md-offset-1">
-            <g:form controller="question" method="POST" id="${question?.id}" class="form-horizontal">
+            <g:form controller="question" method="PUT" id="${question?.id}" class="form-horizontal">
             <%-- Title --%>
                 <div class="form-group">
                     <label for="title" class="col-sm-1 control-label"><g:message code="question.title.label"/></label>
@@ -46,7 +46,7 @@
 
                 <div class="row">
                     <div class="col-sm-1">
-                        <g:actionSubmit action="save" value="${message(code: 'question.edit.save.label')}"
+                        <g:actionSubmit action="update" value="${message(code: 'question.edit.save.label')}"
                                         class="btn btn-primary"/>
                     </div>
                 </div>

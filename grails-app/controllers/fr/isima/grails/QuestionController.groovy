@@ -23,6 +23,7 @@ class QuestionController {
 
     def springSecurityService
     QuestionService questionService
+    HookService hookService
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -68,6 +69,9 @@ class QuestionController {
         }
 
         if (question.save(flush: true, failOnError: true)) {
+            //Hook : Question created
+            hookService.manageHook(EnumHook.QUESTION_CREATED, springSecurityService.currentUser)
+
             request.withFormat {
                 form multipartForm {
                     flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), question.id])
@@ -155,10 +159,11 @@ class QuestionController {
 
     @Transactional
     def addAnswer(Answer answer) {
-        User user = new User()
-        user.id = 1
-        answer.user = user
+        answer.user = springSecurityService.currentUser
         if (answer.save(flush: true, failOnError: true)) {
+            //Hook : Question created
+            hookService.manageHook(EnumHook.ANSWER_CREATED, springSecurityService.currentUser)
+
             request.withFormat {
                 form multipartForm {
                     flash.message = message(code: 'default.created.message', args: [message(code: 'answer.label', default: 'Answer')])
