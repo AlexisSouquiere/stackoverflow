@@ -18,10 +18,12 @@
         <g:link resource="/tag" action="index">
             <button class="btn btn-default btn-flat btn-inactive"><g:message code="stackoverflow.header.bar.tags"/></button>
         </g:link>
-        <button class="btn btn-default btn-flat btn-inactive">
-            <g:message
-                code="stackoverflow.header.bar.users"/>
-        </button>
+        <sec:ifAnyGranted roles='ROLE_ADMIN'>
+            <button class="btn btn-default btn-flat btn-inactive">
+                <g:message
+                    code="stackoverflow.header.bar.users"/>
+            </button>
+        </sec:ifAnyGranted>
         <button class="btn btn-default btn-flat btn-inactive">
             <g:message
                 code="stackoverflow.header.bar.badges"/>

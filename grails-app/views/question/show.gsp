@@ -44,7 +44,12 @@
                 <div class="row">
                     <section class="col-md-12">
                         <h2><g:message code="answer.add.title"/></h2>
-                        <g:render template="/answer/create" model="${[question: question]}"/>
+                        <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
+                            <g:render template="/answer/create" model="${[question: question]}"/>
+                        </sec:ifAnyGranted>
+                        <sec:ifNotLoggedIn>
+                            <a href="/login/authenticate">test</a>
+                        </sec:ifNotLoggedIn>
                     </section>
                 </div>
             </g:if>

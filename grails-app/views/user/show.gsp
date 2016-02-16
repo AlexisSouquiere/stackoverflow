@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>${user.pseudo} - <g:message code="stackoverflow.title"/></title>
+    <title>${user.username} - <g:message code="stackoverflow.title"/></title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
 
 <!-- Main content -->
 <section class="content">
-    <h1>${user.pseudo}</h1>
+    <h1>${user.username}</h1>
     <hr/>
 
     <div class="row">

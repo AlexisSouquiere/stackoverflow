@@ -21,9 +21,9 @@ class QuestionController {
                              indexByTag : "GET"
     ]
 
+    def springSecurityService
     QuestionService questionService
 
-    @Secured(['ROLE_USER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond questions: Question.list(params), model: [questionCount: Question.count()]
@@ -42,6 +42,7 @@ class QuestionController {
         respond question
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def create() {
         respond new Question(params), model : [allTags: Tag.listOrderByLabel()]
     }
@@ -49,12 +50,10 @@ class QuestionController {
     @Transactional
     def save() {
         Question question = new Question(params)
-        User user = new User()
-        user.id = 1
         question.views = 0
         question.rate = 0
         question.isClosed = false
-        question.user = user
+        question.user = springSecurityService.currentUser
 
         if (question == null) {
             transactionStatus.setRollbackOnly()
@@ -212,5 +211,7 @@ class QuestionController {
         }
     }
 
-
+    def isUserThatCreatedTheQuestion(Question question) {
+        return question.user == springSecurityService.currentUser
+    }
 }

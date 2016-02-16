@@ -15,8 +15,8 @@
 <section class="col-md-10">
     <!-- Content body -->
     <div class="content-body">
-${raw(item.description)}
-</div>
+        ${raw(item.description)}
+    </div>
 <!-- /Content body -->
 
 <!-- Tags bar -->
@@ -27,32 +27,39 @@ ${raw(item.description)}
 </div>
 <!-- /Tags bar -->
 
+
 <g:if test="${!question.isClosed}">
-    <!-- Actions bar -->
-    <div class="actions-bar">
-        <!-- Edit -->
-        <g:link resource="/question" action="edit" id="${question.id}"><g:message
-                code="question.show.edit"/></g:link>
-        <!-- Close -->
-        <g:form controller="question" id="${question.id}" method="PUT">
-            <g:actionSubmit action="close" value="${message(code: 'question.show.close')}"/>
-        </g:form>
-        <!-- Delete -->
-        <g:form controller="question" id="${question.id}" method="DELETE">
-            <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
-        </g:form>
-    </div>
+    <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
+        <g:if test="isUserThatCreatedTheQuestion(${question})">
+            <!-- Actions bar -->
+            <div class="actions-bar">
+                <!-- Edit -->
+                <g:link resource="/question" action="edit" id="${question.id}"><g:message
+                        code="question.show.edit"/></g:link>
+                <!-- Close -->
+                <g:form controller="question" id="${question.id}" method="PUT">
+                    <g:actionSubmit action="close" value="${message(code: 'question.show.close')}"/>
+                </g:form>
+                <!-- Delete -->
+                <g:form controller="question" id="${question.id}" method="DELETE">
+                    <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
+                </g:form>
+            </div>
+        </g:if>
+    </sec:ifAnyGranted>
 
     <%-- Comments --%>
     <div class="comments-list">
         <g:render template="/comment/index" model="${[comments: question.comments]}" var="comments"/>
     </div>
 
-    <%-- Add comment --%>
-    <div class="add-comment">
-        <g:message code="question.show.comment.add"/>
-    </div>
-    <g:render template="/comment/create" model="${[question: question]}"/>
+    <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
+        <%-- Add comment --%>
+        <div class="add-comment">
+            <g:message code="question.show.comment.add"/>
+        </div>
+        <g:render template="/comment/create" model="${[question: question]}"/>
+    </sec:ifAnyGranted>
 
     <!-- /Actions bar -->
 </g:if>

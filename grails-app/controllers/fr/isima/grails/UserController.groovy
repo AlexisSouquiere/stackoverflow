@@ -9,12 +9,17 @@ class UserController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def springSecurityService
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model: [userCount: User.count()]
     }
 
     def show(User user) {
+        if(user == null)
+            respond springSecurityService.currentUser
+
         respond user
     }
 
