@@ -10,6 +10,8 @@ class CommentController {
     static allowedMethods = [save       : "POST"
     ]
 
+    def springSecurityService
+
     def create() {
         respond new Comment(params)
     }
@@ -17,9 +19,7 @@ class CommentController {
     @Transactional
     def save() {
         Comment comment = new Comment(params)
-        User user = new User()
-        user.id = 1
-        comment.user = user
+        comment.user = springSecurityService.currentUser
 
          if (comment == null) {
             transactionStatus.setRollbackOnly()

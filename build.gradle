@@ -77,7 +77,10 @@ dependencies {
 
     console "org.grails:grails-console"
 
-    compile 'org.grails.plugins:spring-security-core:3.0.3'
+    compile "org.grails.plugins:spring-security-core:3.0.3"
+    compile "org.grails.plugins:spring-security-ui:3.0.0.M1"
+    compile "org.grails.plugins:mail:2.0.0.RC4"
+
 }
 
 task wrapper(type: Wrapper) {
