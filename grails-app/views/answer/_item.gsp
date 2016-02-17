@@ -17,21 +17,33 @@
     <!-- /Content body -->
 
     <g:if test="${!question.isClosed}">
-        <!-- Actions bar -->
-        <div class="actions-bar">
-            <!-- Edit -->
-            <g:link resource="/question" action="edit" id="${question.id}"><g:message
-                    code="question.show.edit"/></g:link>
-            <!-- Delete -->
-            <g:form controller="question" id="${question.id}" method="DELETE">
-                <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
-            </g:form>
+        <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
+            <g:if test="isUserThatCreatedTheQuestion(${question})">
+                <!-- Actions bar -->
+                <div class="actions-bar">
+                    <!-- Edit -->
+                    <g:link resource="/question" action="edit" id="${question.id}"><g:message
+                            code="question.show.edit"/></g:link>
+                    <!-- Delete -->
+                    <g:form controller="question" id="${question.id}" method="DELETE">
+                        <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
+                    </g:form>
+                </div>
+            </g:if>
+        </sec:ifAnyGranted>
+
+        <%-- Comments --%>
+        <div class="comments-list">
+            <g:render template="/comment/index" model="${[comments: item.comments]}" var="comments"/>
         </div>
 
-        <div class="add-comment">
-            <g:link resource="/question" action="show" id="${question.id}"><g:message
-                    code="question.show.comment.add"/></g:link>
-        </div>
+        <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
+        <%-- Add comment --%>
+            <div class="add-comment">
+                <g:message code="question.show.comment.add"/>
+            </div>
+            <g:render template="/comment/create" bean="${item}" var="item"/>
+        </sec:ifAnyGranted>
         <!-- /Actions bar -->
     </g:if>
 </section>

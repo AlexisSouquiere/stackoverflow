@@ -25,6 +25,8 @@ class Answer {
     static belongsTo = [question: Question,
                         user    : User]
 
+    static hasMany = [comments: Comment]
+
     public String getDescriptionEscaped() {
         return Jsoup.parse(description).text();
     }

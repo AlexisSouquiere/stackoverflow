@@ -39,7 +39,7 @@ class CommentController {
             flash.error = message(code: 'default.error.created.message', args: [message(code: 'comment.label', default: 'Comment'), comment.id])
         }
 
-        Question question = Question.get(comment.question.id)
+        Question question = comment.question == null ? Question.get(comment.answer.question.id) : Question.get(comment.question.id)
         redirect controller: "question", action: "show",id: question.id, params: [question: question]
     }
 

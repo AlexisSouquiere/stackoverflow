@@ -1,6 +1,10 @@
 <g:form controller="comment" method="POST" class="form-horizontal comment-form">
-    <g:hiddenField name="question.id" value="${question?.id}"/>
-    <g:hiddenField name="answer.id" value="${answer?.id}"/>
+    <g:if test="${item instanceof fr.isima.grails.Question}">
+        <g:hiddenField name="question.id" value="${item?.id}"/>
+    </g:if>
+    <g:if test="${item instanceof fr.isima.grails.Answer}">
+        <g:hiddenField name="answer.id" value="${item?.id}"/>
+    </g:if>
     <%-- Description --%>
     <div class="row">
         <div class="col-md-10">

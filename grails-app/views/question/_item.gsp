@@ -58,7 +58,7 @@
         <div class="add-comment">
             <g:message code="question.show.comment.add"/>
         </div>
-        <g:render template="/comment/create" model="${[question: question]}"/>
+        <g:render template="/comment/create" bean="${question}" var="item"/>
     </sec:ifAnyGranted>
 
     <!-- /Actions bar -->

@@ -5,7 +5,6 @@
   Time: 19:29
 --%>
 
-<%@ page import="fr.isima.grails.Question" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>

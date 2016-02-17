@@ -27,8 +27,8 @@ $( document ).ready(function() {
     });
 
     /* Hide the "add comment" button and display the form */
-    $('.add-comment').click(function() {
-        $('.add-comment').hide();
-        $('.comment-form').show();
+    $('.add-comment').click(function(event){
+        $(event.target).hide(); //.add-comment concerned
+        $(event.target).parent().find('.comment-form').show(); //.comment-form concerned
     });
 });
