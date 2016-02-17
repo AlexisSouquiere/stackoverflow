@@ -11,11 +11,14 @@
 //= require bootstrap/dist/js/bootstrap.min.js
 //= require AdminLTE/dist/js/app.min.js
 //= require AdminLTE/plugins/select2/select2.full.min.js
-//= require AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js
+//= require summernote/dist/summernote.min.js
 
 $( document ).ready(function() {
-    /* Use WYSIHTML5 */
-    $('.wysihtml5').wysihtml5();
+    /* Use Summernote */
+    $('#summernote').summernote({
+        height: 200,
+        disableResizeEditor: true
+    });
 
     /* Use Select2 for tagging */
     $('.select2').select2({

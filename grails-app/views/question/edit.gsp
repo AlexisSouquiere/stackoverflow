@@ -32,7 +32,7 @@
                 </div>
             <%-- Description --%>
                 <div class="form-group">
-                    <g:textArea name="description" rows="20" value="${question?.description}" class="wysihtml5" />
+                    <g:textArea name="description" rows="20" value="${question?.description}" id="summernote" />
                 </div>
 
             <%-- Tags bar --%>

@@ -19,6 +19,7 @@ class Answer {
         autoTimestamp true
         sort dateCreated: "asc"
         comments sort: 'dateCreated'
+        rate defaultValue: "0"
     }
 
     static belongsTo = [question: Question,

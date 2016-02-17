@@ -160,6 +160,7 @@ class QuestionController {
     @Transactional
     def addAnswer(Answer answer) {
         answer.user = springSecurityService.currentUser
+        answer.rate = 0
         if (answer.save(flush: true, failOnError: true)) {
             //Hook : Question created
             hookService.manageHook(EnumHook.ANSWER_CREATED, springSecurityService.currentUser)

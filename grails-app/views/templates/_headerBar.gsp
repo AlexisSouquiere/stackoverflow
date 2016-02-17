@@ -12,7 +12,7 @@
     </g:if>
     <asset:image src="/stackoverflow/so-logo.png" class="logo"/>
     <div class="button-bar">
-        <g:link resource="/question" action="index">
+        <g:link resource="/question" action="index" class="btn-top-question">
             <button class="btn btn-default btn-flat btn-active"><g:message code="stackoverflow.header.bar.questions"/></button>
         </g:link>
         <g:link resource="/tag" action="index">
@@ -30,7 +30,7 @@
                     code="stackoverflow.header.bar.badges"/>
             </button>
         </g:link>
-        <g:link resource="/question" action="create">
+        <g:link resource="/question" action="create" class="btn-ask-question">
             <button class="btn btn-default btn-flat btn-inactive"><g:message code="stackoverflow.header.bar.question.add"/></button>
         </g:link>
     </div>

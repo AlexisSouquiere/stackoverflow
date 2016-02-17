@@ -71,9 +71,8 @@ class AnswerController {
 
     @Transactional
     def save(Answer answer) {
-        User user = new User()
-        user.id = 1
-        answer.user = user
+        answer.user = springSecurityService.currentUser
+
         if (answer.save(flush: true, failOnError: true)) {
             request.withFormat {
                 form multipartForm {
@@ -108,7 +107,7 @@ class AnswerController {
             request.withFormat {
                 form multipartForm {
                     flash.message = message(code: 'default.vote.message', args: [message(code: 'answer.label', default: 'Answer')])
-                    redirect answer
+                    redirect(controller: "question", action: "show", id: answer.question.id)
                 }
                 '*' { respond answer, [status: UPDATED] }
             }
