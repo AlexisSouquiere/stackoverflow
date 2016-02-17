@@ -43,7 +43,7 @@
                     <sec:ifLoggedIn>
                         <li>
                             <form name="logout" method="POST" action="${createLink(controller:'logout') }">
-                                <input type="submit" value="${message(code:'header.logout')}">
+                                <input type="submit" value="${message(code:'header.logout')}" class="btn btn-link" id="logout">
                             </form>
                         </li>
                         <!-- User Account Menu -->
