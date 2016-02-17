@@ -26,7 +26,11 @@
         <!-- Profile -->
         <section class="col-md-11 indent">
             <h2><g:message code="user.page.profile"/></h2><hr/>
+            <g:render template="/user/details" model="${[user: user]}" var="user"/>
 
+            <g:link resource="/user" action="edit" id="${user.id}">
+                <g:message code="user.show.edit.profile"/>
+            </g:link>
         </section>
         <!-- /Profile -->
 

@@ -9,7 +9,7 @@ class BootStrap {
     def init = {
         def adminRole = new Role('ROLE_ADMIN')
         def userRole = new Role('ROLE_USER')
-        def userAdmin = new User('admin', 'admin')
+        def userAdmin = new User('admin', 'admin@stackoverflow.fr', 'admin')
 
         adminRole.save(flush: true)
         userRole.save(flush: true)
