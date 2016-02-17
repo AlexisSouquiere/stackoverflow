@@ -149,6 +149,24 @@
     <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
     <div class="control-sidebar-bg" style="position: fixed; height: auto;"></div>
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div style="text-align:center; margin-top:15px;">
+                <a href="${request.getRequestURL}?lang=fr" style="margin-right:15px;">
+                    <span class="flag-icon flag-icon-fr"></span>
+                </a>
+                <a href="${request.getRequestURL}?lang=en">
+                    <span class="flag-icon flag-icon-gb"></span>
+                </a>
+            </div>
+        </section>
+    </aside>
+
 </div>
 <!-- ./wrapper -->
 </div>
