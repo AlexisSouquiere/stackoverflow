@@ -20,12 +20,12 @@
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <g:link resource="/question" action="index" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>S</b>tack</span>
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>S</b>tack<b>O</b>verflow</span>
-        </a>
+        </g:link>
 
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -33,11 +33,11 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li>
-                        <g:link controller="register">${message(code:'header.sign.in')}</g:link>
+                        <g:link controller="register" class="create-account">${message(code:'header.sign.in')}</g:link>
                     </li>
                     <sec:ifNotLoggedIn>
                         <li>
-                            <g:link controller="login" action='index'>${message(code:'header.login')}</g:link>
+                            <g:link controller="login" action='index' class="login-link">${message(code:'header.login')}</g:link>
                         </li>
                     </sec:ifNotLoggedIn>
                     <sec:ifLoggedIn>
@@ -49,7 +49,7 @@
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
-                            <g:link resource="/user" action="show" id="${sec.loggedInUserInfo(field: 'id')}">
+                            <g:link resource="/user" action="show" id="${sec.loggedInUserInfo(field: 'id')}" class="my-profile">
                                 <sec:loggedInUserInfo field="username"/>
                             </g:link>
                         </li>

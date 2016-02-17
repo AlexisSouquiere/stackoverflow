@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group username">
     <label><g:message code='user.username'/>:</label>
     <p>${user?.username}</p>
 </div>
