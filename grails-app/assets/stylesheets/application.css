@@ -12,7 +12,7 @@
 *= require AdminLTE/dist/css/AdminLTE.min.css
 *= require AdminLTE/dist/css/skins/skin-yellow.min.css
 *= require AdminLTE/plugins/select2/select2.min.css
-*= require AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css
+*= require summernote/dist/summernote.css
 *= require style
 */
 

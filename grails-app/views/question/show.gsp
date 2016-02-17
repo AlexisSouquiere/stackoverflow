@@ -48,7 +48,7 @@
                             <g:render template="/answer/create" model="${[question: question]}"/>
                         </sec:ifAnyGranted>
                         <sec:ifNotLoggedIn>
-                            <g:link controller="login" action='index'>
+                            <g:link controller="login" action='index' class="log-in-link">
                                 ${message(code:'question.show.comment.add.not.logged')}
                             </g:link>
                         </sec:ifNotLoggedIn>

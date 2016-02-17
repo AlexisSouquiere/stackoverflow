@@ -28,6 +28,7 @@ class Question {
     static mapping = {
         autoTimestamp true
         comments sort: 'dateCreated'
+        rate defaultValue: "0"
     }
 
     static transients = ['hasBest']

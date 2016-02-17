@@ -265,3 +265,21 @@ body {
     position: relative;
     left: 22px;
 }
+
+/* Custom style for summernote */
+.note-editor.note-frame, .panel-default {
+    border: 0;
+}
+
+.panel-default > .panel-heading {
+    background: none;
+    border: 0;
+}
+
+.note-editable {
+    border: 1px solid #d2d6de;
+}
+
+.note-statusbar {
+    display: none;
+}
