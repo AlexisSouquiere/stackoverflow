@@ -283,3 +283,7 @@ body {
 .note-statusbar {
     display: none;
 }
+
+.form-question-create .note-editable {
+    height: 400px !important;
+}
