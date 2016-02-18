@@ -165,13 +165,15 @@
                 </a>
             </div>
 
-            <div style="position:relative;left:55px; color:white;">
-                <h3>${currentUser.username}</h3>
-                <p>${currentUser.questions.size()} ${message(code:'question.label')}</p>
-                <p>${currentUser.answers.size()} ${message(code:'answer.label')}</p>
-                <p>${currentUser.comments.size()} ${message(code:'comment.label')}</p>
-                <p>${currentUser.badges.size()} ${message(code:'badge.label')}</p>
-            </div>
+            <sec:ifLoggedIn>
+                <div style="position:relative;left:55px; color:white;">
+                    <h3>${currentUser.username}</h3>
+                    <p>${currentUser.questions.size()} ${message(code:'question.label')}</p>
+                    <p>${currentUser.answers.size()} ${message(code:'answer.label')}</p>
+                    <p>${currentUser.comments.size()} ${message(code:'comment.label')}</p>
+                    <p>${currentUser.badges.size()} ${message(code:'badge.label')}</p>
+                </div>
+            </sec:ifLoggedIn>
         </section>
     </aside>
 
