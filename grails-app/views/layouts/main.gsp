@@ -50,7 +50,7 @@
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
                             <g:link resource="/user" action="show" id="${sec.loggedInUserInfo(field: 'id')}" class="my-profile">
-                                <sec:loggedInUserInfo field="username"/>
+                                ${currentUser.username}
                             </g:link>
                         </li>
                     </sec:ifLoggedIn>
@@ -154,15 +154,23 @@
     <aside class="main-sidebar">
 
         <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
+        <section class="sidebar" style="height: auto;">
             <!-- Sidebar user panel (optional) -->
             <div style="text-align:center; margin-top:15px;">
-                <a href="${request.getRequestURL}?lang=fr" style="margin-right:15px;">
+                <a href="?lang=fr" style="margin-right:15px;">
                     <span class="flag-icon flag-icon-fr"></span>
                 </a>
-                <a href="${request.getRequestURL}?lang=en">
+                <a href="?lang=en">
                     <span class="flag-icon flag-icon-gb"></span>
                 </a>
+            </div>
+
+            <div style="position:relative;left:55px; color:white;">
+                <h3>${currentUser.username}</h3>
+                <p>${currentUser.questions.size()} ${message(code:'question.label')}</p>
+                <p>${currentUser.answers.size()} ${message(code:'answer.label')}</p>
+                <p>${currentUser.comments.size()} ${message(code:'comment.label')}</p>
+                <p>${currentUser.badges.size()} ${message(code:'badge.label')}</p>
             </div>
         </section>
     </aside>
