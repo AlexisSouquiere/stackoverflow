@@ -28,25 +28,34 @@
 <!-- /Tags bar -->
 
 
-<g:if test="${!question.isClosed}">
-    <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
-        <sec:access expression="${sec.loggedInUserInfo(field: 'id').toLong() == question.userId} || hasRole('ROLE_ADMIN')">
-            <!-- Actions bar -->
-            <div class="actions-bar">
-                <!-- Edit -->
-                <g:link resource="/question" action="edit" id="${question.id}"><g:message
-                        code="question.show.edit"/></g:link>
-                <!-- Close -->
-                <g:form controller="question" id="${question.id}" method="PUT">
-                    <g:actionSubmit action="close" value="${message(code: 'question.show.close')}"/>
-                </g:form>
-                <!-- Delete -->
-                <g:form controller="question" id="${question.id}" method="DELETE">
-                    <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
-                </g:form>
-            </div>
-        </sec:access>
-    </sec:ifAnyGranted>
+<div style="position:relative; min-height:20px">
+    <g:if test="${!question.isClosed}">
+        <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
+            <sec:access expression="${sec.loggedInUserInfo(field: 'id').toLong() == question.userId} || hasRole('ROLE_ADMIN')">
+                <!-- Actions bar -->
+                <div class="actions-bar">
+                    <!-- Edit -->
+                    <g:link resource="/question" action="edit" id="${question.id}"><g:message
+                            code="question.show.edit"/></g:link>
+                    <!-- Close -->
+                    <g:form controller="question" id="${question.id}" method="PUT">
+                        <g:actionSubmit action="close" value="${message(code: 'question.show.close')}"/>
+                    </g:form>
+                    <!-- Delete -->
+                    <g:form controller="question" id="${question.id}" method="DELETE">
+                        <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
+                    </g:form>
+                </div>
+            </sec:access>
+        </sec:ifAnyGranted>
+    </g:if>
+        <div class="qr-info">
+            <g:message code="home.page.question.item.dateauthor"
+                       args="${[formatDate(format:'dd/MM/yyyy',date:question.dateCreated),
+                                formatDate(format:'H:m',date:question.dateCreated)]}"/>
+            <g:link resource="/user" action="show" id="${question.user.id}">${question.user.username}</g:link>
+        </div>
+    </div>
 
     <%-- Comments --%>
     <div class="comments-list">
@@ -62,4 +71,3 @@
     </sec:ifAnyGranted>
 
     <!-- /Actions bar -->
-</g:if>
