@@ -1,5 +1,9 @@
 //var casper = require('casper').create();
 
+config.questionForm = {
+    "title": "Create question test",
+    "description": "Lorem ipsum",
+};
 
 /****************************************
  *          Create a question           *
@@ -19,38 +23,38 @@ casper.test.begin('Create a question', 4, function(test){
     test.comment('... Clicking the Ask Question button...');
 
     // Fill log in form
-    casper.wait(500, function(){
+    casper.then(function(){
+        test.comment('... Log in ...');
         this.fill('form#loginForm', config.loginForm, false);
+        casper.capture('screenshots/createQuestion/1-logIn.png');
     });
 
-    // Submit log in form
     casper.then(function(){
         this.click('#submit');
     });
 
-    // Fill question form
-    casper.wait(500, function(){
+    casper.then(function(){
+        casper.capture('screenshots/createQuestion/2-questionForm.png');
         test.assertUrlMatch(this.getCurrentUrl(), config.routes.questionCreate);
-        test.comment('Create question form loaded');
+    });
 
-        this.fill('form.form-question-create', {
-            'title':        'Create question test',
-        }, false);
-        this.sendKeys('#title', casper.page.event.key.Tab , {keepFocus: true});
-        this.sendKeys('#title', casper.page.event.key.Tab , {keepFocus: true});
+    // Fill the question form
+    casper.then(function(){
+        this.fill('form.form-question-create', config.questionForm, false);
+    });
+
+    // Submit question form
+    casper.then(function(){
         this.click('.btn-save-question');
     });
 
-    casper.then(function () {
-        test.assertHttpStatus(200, 'Question created');
-    });
-
-    casper.then(function () {
+    // Assert that the question has been created
+    casper.then(function(){
+        test.assertExists('.alert-success');
         test.assertUrlMatch(this.getCurrentUrl(), config.routes.questionShow);
-        //test.assertExists('.alert-success');
+        test.comment('... Question created ...');
+        casper.capture('screenshots/createQuestion/3-questionCreated.png');
     });
-
-    casper.capture('screenshots/createQuestion.png');
 
     // Run all the tests defined above.
     casper.run(function(){

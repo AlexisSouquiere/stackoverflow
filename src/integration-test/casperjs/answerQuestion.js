@@ -26,7 +26,7 @@ casper.test.begin('Answer to a question', 5, function(test){
     casper.then(function () {
         test.assertUrlMatch(this.getCurrentUrl(), config.routes.questionShow);
         test.assertExists('.log-in-link');
-        casper.capture('screenshots/createQuestion/1-topQuestion.png');
+        casper.capture('screenshots/answerQuestion/1-topQuestion.png');
         this.click('.log-in-link');
     });
 
@@ -34,7 +34,7 @@ casper.test.begin('Answer to a question', 5, function(test){
     casper.then(function(){
         test.comment('... Log in ...');
         this.fill('form#loginForm', config.loginForm, false);
-        casper.capture('screenshots/createQuestion/2-logIn.png');
+        casper.capture('screenshots/answerQuestion/2-logIn.png');
     });
 
     casper.then(function(){
@@ -45,20 +45,20 @@ casper.test.begin('Answer to a question', 5, function(test){
 
     //TO REMOVE
     casper.then(function(){
-        casper.capture('screenshots/createQuestion/3-afterLogIn.png');
+        casper.capture('screenshots/answerQuestion/3-afterLogIn.png');
         test.comment('... Btn top question ...');
         this.click('.btn-top-question');
     });
 
     casper.then(function(){
-        casper.capture('screenshots/createQuestion/4-topQuestion.png');
+        casper.capture('screenshots/answerQuestion/4-topQuestion.png');
         test.comment('... Clicking on the first question ...');
         this.click('.table tr:first-child .question-link');
     });
     // -- TO REMOVE
 
     casper.then(function(){
-        casper.capture('screenshots/createQuestion/5-question.png');
+        casper.capture('screenshots/answerQuestion/5-question.png');
     });
 
     // Fill the answer form
@@ -75,7 +75,7 @@ casper.test.begin('Answer to a question', 5, function(test){
     casper.then(function(){
         test.assertExists('.alert-success');
         test.comment('... Answer created ...');
-        casper.capture('screenshots/createQuestion/6-answerCreated.png');
+        casper.capture('screenshots/answerQuestion/6-answerCreated.png');
     });
 
     // Run all the tests defined above.

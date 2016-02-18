@@ -41,7 +41,9 @@ casper.test.begin('Look at user profile', 3, function(test){
 
     // Assertions
     casper.then(function(){
-        test.assertField('.username p', config.loginForm.username, 'The username matchs with the user connected');
+        test.assertEvalEquals(function() {
+            return __utils__.findOne('h1').textContent;
+        }, config.loginForm.username);
     });
 
     // Run all the tests defined above.

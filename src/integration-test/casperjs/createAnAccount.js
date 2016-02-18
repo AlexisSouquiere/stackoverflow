@@ -3,15 +3,15 @@
 config.registration = {
     "username": "jdoe",
     "email"   : "john.doe@mail.com",
-    "password": "jdoe",
-    "password2": "jdoe",
+    "password": "Maison15!",
+    "password2": "Maison15!",
 };
 
 /****************************************
  *         Create an account            *
  ****************************************/
 
-casper.test.begin('Create an account', 2, function(test){
+casper.test.begin('Create an account', 4, function(test){
     test.comment('... Loading ' + config.routes.question + '...');
     casper.start(config.routes.question);
     casper.then(function () {
@@ -38,6 +38,12 @@ casper.test.begin('Create an account', 2, function(test){
 
     casper.then(function(){
         casper.capture('screenshots/createAnAccount/2-accountCreated.png');
+    });
+
+    casper.then(function(){
+        test.assertExists('#registerForm');
+        test.assertDoesntExist('#submit');
+
     });
 
     // Run all the tests defined above.
