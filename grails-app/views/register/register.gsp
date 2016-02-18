@@ -26,20 +26,48 @@
             <g:else>
                 <br/>
                 <div class="form-group">
-                    <label for="username"><g:message code='springSecurity.register.username.label'/>:</label>
-                    <input type="text" value class="form-control" name="username" id="username"/>
+                    <label for="username"><g:message code='springSecurity.register.username.label'/>* :</label>
+                    <g:hasErrors bean="${registerCommand}" field="username">
+                        <p>
+                            <g:eachError bean="${registerCommand}" field="username">
+                                <g:message error="${it}" /><br/>
+                            </g:eachError>
+                        </p>
+                    </g:hasErrors>
+                    <input type="text" value class="form-control" name="username" id="username" required />
                 </div>
                 <div class="form-group">
-                    <label for="email"><g:message code='springSecurity.register.email.label'/>:</label>
-                    <input type="text" value class="form-control" name="email" id="email"/>
+                    <label for="email"><g:message code='springSecurity.register.email.label'/>* :</label>
+                    <g:hasErrors bean="${registerCommand}" field="email">
+                        <p>
+                            <g:eachError bean="${registerCommand}" field="email">
+                                <g:message error="${it}" /><br/>
+                            </g:eachError>
+                        </p>
+                    </g:hasErrors>
+                    <input type="text" value class="form-control" name="email" id="email" required/>
                 </div>
                 <div class="form-group">
-                    <label for="password"><g:message code='springSecurity.register.password.label'/>:</label>
-                    <input type="password" value class="form-control" name="password" id="password"/>
+                    <label for="password"><g:message code='springSecurity.register.password.label'/>* :</label>
+                    <g:hasErrors bean="${registerCommand}" field="password">
+                        <p>
+                            <g:eachError bean="${registerCommand}" field="password">
+                                <g:message error="${it}" /><br/>
+                            </g:eachError>
+                        </p>
+                    </g:hasErrors>
+                    <input type="password" value class="form-control" name="password" id="password" required/>
                 </div>
                 <div class="form-group">
-                    <label for="password2"><g:message code='springSecurity.register.password.again.label'/>:</label>
-                    <input type="password" value class="form-control" name="password2" id="password2"/>
+                    <label for="password2"><g:message code='springSecurity.register.password.again.label'/>* :</label>
+                    <g:hasErrors bean="${registerCommand}" field="password2">
+                        <p>
+                            <g:eachError bean="${registerCommand}" field="password2">
+                                <g:message error="${it}" /><br/>
+                            </g:eachError>
+                        </p>
+                    </g:hasErrors>
+                    <input type="password" value class="form-control" name="password2" id="password2" required/>
                 </div>
 
                 <input type="submit" id="submit" class="btn btn-warning" value="${message(code: 'springSecurity.register.button')}"/>
