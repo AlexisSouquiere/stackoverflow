@@ -32,7 +32,17 @@
                 <g:message code="user.show.edit.profile"/>
             </g:link>
         </section>
-        <!-- /Profile -->
+
+        <!-- Badges -->
+        <section class="col-md-11 indent">
+            <h2><g:message code="user.page.badges"/></h2><hr/>
+            <div class="row so-badge">
+                <g:each var="badge" in="${user.badges}">
+                    <g:render template="/user/badge/listItem" model="${[badge: badge]}" var="badge"/>
+                </g:each>
+            </div>
+        </section>
+        <!-- /Badges -->
 
         <!-- Answers -->
         <section class="col-md-11 indent">
