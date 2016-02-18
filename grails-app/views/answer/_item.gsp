@@ -16,34 +16,42 @@
     </div>
     <!-- /Content body -->
 
-    <g:if test="${!question.isClosed}">
-        <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
-            <g:if test="isUserThatCreatedTheQuestion(${question})">
-                <!-- Actions bar -->
-                <div class="actions-bar">
-                    <!-- Edit -->
-                    <g:link resource="/question" action="edit" id="${question.id}"><g:message
-                            code="question.show.edit"/></g:link>
-                    <!-- Delete -->
-                    <g:form controller="question" id="${question.id}" method="DELETE">
-                        <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
-                    </g:form>
-                </div>
-            </g:if>
-        </sec:ifAnyGranted>
-
-        <%-- Comments --%>
-        <div class="comments-list">
-            <g:render template="/comment/index" model="${[comments: item.comments]}" var="comments"/>
+    <div style="position:relative; min-height:20px">
+        <g:if test="${!question.isClosed}">
+            <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
+                <sec:access expression="${sec.loggedInUserInfo(field: 'id').toLong() == item.userId} || hasRole('ROLE_ADMIN')">
+                    <!-- Actions bar -->
+                    <div class="actions-bar">
+                        <!-- Edit -->
+                        <g:link resource="/question" action="edit" id="${question.id}"><g:message
+                                code="question.show.edit"/></g:link>
+                        <!-- Delete -->
+                        <g:form controller="question" id="${question.id}" method="DELETE">
+                            <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
+                        </g:form>
+                    </div>
+                </sec:access>
+            </sec:ifAnyGranted>
+        </g:if>
+        <div class="qr-info">
+            <g:message code="home.page.question.item.dateauthor"
+                       args="${[formatDate(format:'dd/MM/yyyy',date:question.dateCreated),
+                                formatDate(format:'H:m',date:question.dateCreated)]}"/>
+            <g:link resource="/user" action="show" id="${item.user.id}">${item.user.username}</g:link>
         </div>
+    </div>
 
-        <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
-        <%-- Add comment --%>
-            <div class="add-comment">
-                <g:message code="question.show.comment.add"/>
-            </div>
-            <g:render template="/comment/create" bean="${item}" var="item"/>
-        </sec:ifAnyGranted>
-        <!-- /Actions bar -->
-    </g:if>
+    <%-- Comments --%>
+    <div class="comments-list">
+        <g:render template="/comment/index" model="${[comments: item.comments]}" var="comments"/>
+    </div>
+
+    <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
+    <%-- Add comment --%>
+        <div class="add-comment">
+            <g:message code="question.show.comment.add"/>
+        </div>
+        <g:render template="/comment/create" bean="${item}" var="item"/>
+    </sec:ifAnyGranted>
+    <!-- /Actions bar -->
 </section>

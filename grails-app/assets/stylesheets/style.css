@@ -287,3 +287,9 @@ body {
 .form-question-create .note-editable {
     height: 400px !important;
 }
+
+.qr-info {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+}
