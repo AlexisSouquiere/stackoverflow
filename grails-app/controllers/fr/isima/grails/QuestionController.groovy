@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured
+import grails.plugin.springsecurity.SpringSecurityUtils
 
 @Transactional(readOnly = true)
 class QuestionController {
@@ -84,7 +85,13 @@ class QuestionController {
         }
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def edit(Question question) {
+        def user = springSecurityService.currentUser
+
+        if(!SpringSecurityUtils.ifAllGranted('ROLE_ADMIN') && user.id != question.userId)
+            redirect controller: "login", action: "denied"
+
         respond question, model : [allTags: Tag.listOrderByLabel(),
                                    selectedTags: question.tags]
     }
@@ -217,7 +224,4 @@ class QuestionController {
         }
     }
 
-    def isUserThatCreatedTheQuestion(Question question) {
-        return question.user == springSecurityService.currentUser
-    }
 }

@@ -30,7 +30,7 @@
 
 <g:if test="${!question.isClosed}">
     <sec:ifAnyGranted roles='ROLE_USER, ROLE_ADMIN'>
-        <g:if test="isUserThatCreatedTheQuestion(${question})">
+        <sec:access expression="${sec.loggedInUserInfo(field: 'id').toLong() == question.userId} || hasRole('ROLE_ADMIN')">
             <!-- Actions bar -->
             <div class="actions-bar">
                 <!-- Edit -->
@@ -45,7 +45,7 @@
                     <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
                 </g:form>
             </div>
-        </g:if>
+        </sec:access>
     </sec:ifAnyGranted>
 
     <%-- Comments --%>
