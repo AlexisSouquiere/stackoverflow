@@ -30,6 +30,10 @@ class User implements Serializable {
 		UserRole.findAllByUser(this)*.role
 	}
 
+	public Integer getReputation() {
+		return EnumReputation.ANSWER.score * this.answers.size() + EnumReputation.QUESTION.score * this.questions.size() + EnumReputation.COMMENT.score * this.comments.size()
+	}
+
 	def beforeInsert() {
 		encodePassword()
 	}
