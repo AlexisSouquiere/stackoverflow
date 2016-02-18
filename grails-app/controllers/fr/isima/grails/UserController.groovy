@@ -1,6 +1,7 @@
 package fr.isima.grails
 
-import grails.transaction.Transactional
+import grails.plugin.springsecurity.annotation.Secured
+import grails.plugin.springsecurity.SpringSecurityUtils
 
 import static org.springframework.http.HttpStatus.*
 
@@ -13,6 +14,16 @@ class UserController extends grails.plugin.springsecurity.ui.UserController {
             respond springSecurityService.currentUser
 
         respond user
+    }
+
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
+    def edit() {
+        def user = springSecurityService.currentUser
+
+        if(!SpringSecurityUtils.ifAllGranted('ROLE_ADMIN') && user.id != params.id.toLong())
+            redirect controller: "login", action: "denied"
+
+        super.edit();
     }
 
     protected void notFound() {
