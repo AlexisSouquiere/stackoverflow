@@ -25,7 +25,7 @@
             <g:form controller="answer" method="PUT" id="${answer?.id}" class="form-horizontal">
                 <%-- Description --%>
                 <div class="form-group">
-                    <g:textArea name="description" value="${answer?.description}" id="summernote" />
+                    <g:textArea name="description" value="${answer?.description}" id="summernote" required="true" />
                 </div>
 
                 <div class="row">

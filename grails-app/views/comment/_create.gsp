@@ -8,7 +8,7 @@
     <%-- Description --%>
     <div class="row">
         <div class="col-md-10">
-            <g:textArea name="description" class="comment-field" value="" />
+            <g:textArea name="description" class="comment-field" value="" required="true" />
         </div>
         <div class="col-md-2">
             <g:actionSubmit action="save" value="${message(code: 'question.comment.add.btn.label')}" class="btn"/>

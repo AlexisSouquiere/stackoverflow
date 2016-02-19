@@ -27,19 +27,20 @@
                     <div class="form-group">
                         <label for="title" class="col-sm-1 control-label"><g:message code="question.title.label"/></label>
                         <div class="col-sm-11">
-                            <g:field type="text" name="title" value="${question?.title}" class="form-control"/>
+                            <g:field type="text" name="title" value="${question?.title}" class="form-control" required="true"/>
                         </div>
                     </div>
                     <%-- Description --%>
                     <div class="form-group">
-                        <g:textArea name="description" value="${question?.description}" id="summernote" />
+                        <g:textArea name="description" value="${question?.description}" id="summernote" required="true"/>
                     </div>
 
                     <%-- Tags bar --%>
                     <div class="form-group">
                         <label for="tags" class="col-sm-1 control-label"><g:message code="question.tags.label"/></label>
                         <div class="col-sm-11">
-                            <g:select name="tags" id="tags" from="${allTags}" optionKey="id" optionValue="label" multiple="true" class="form-control select2" />
+                            <g:select name="tags" id="tags" from="${allTags}" optionKey="id" optionValue="label"
+                                      multiple="true" class="form-control select2" required="true" />
                         </div>
                     </div>
                     <%-- /Tags bar --%>
