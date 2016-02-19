@@ -1,9 +1,21 @@
 <!-- Rate bloc -->
 <div class="rate-bloc col-md-2">
     <g:form controller="answer" id="${item.id}" method="PUT">
-        <g:actionSubmitImage value="${message(code: 'question.vote.up')}" action="voteUp" src="${resource(dir: '/assets/stackoverflow', file: 'arrow.png')}" class="arrow-up"/>
+        <sec:ifLoggedIn>
+            <sec:access expression="${sec.loggedInUserInfo(field: 'id').toLong() != item.userId} || hasRole('ROLE_ADMIN')">
+                <g:actionSubmitImage value="${message(code: 'question.vote.up')}" action="voteUp"
+                                     src="${resource(dir: '/assets/stackoverflow', file: 'arrow.png')}"
+                                     class="arrow-up"/>
+            </sec:access>
+        </sec:ifLoggedIn>
         <strong class="rate">${item.rate}</strong>
-        <g:actionSubmitImage value="${message(code: 'question.vote.down')}" action="voteDown" src="${resource(dir: '/assets/stackoverflow', file: 'arrow.png')}" class="arrow-down"/>
+        <sec:ifLoggedIn>
+            <sec:access expression="${sec.loggedInUserInfo(field: 'id').toLong() != item.userId} || hasRole('ROLE_ADMIN')">
+                <g:actionSubmitImage value="${message(code: 'question.vote.down')}" action="voteDown"
+                                     src="${resource(dir: '/assets/stackoverflow', file: 'arrow.png')}"
+                                     class="arrow-down"/>
+            </sec:access>
+        </sec:ifLoggedIn>
     </g:form>
     <g:if test="${item.isBest}">
         <asset:image src="/stackoverflow/check.png" class="check"/>
