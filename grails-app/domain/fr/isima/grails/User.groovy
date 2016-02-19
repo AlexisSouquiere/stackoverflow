@@ -62,7 +62,6 @@ class User implements Serializable {
 
 	static hasMany = [questions : Question,
 					  answers  : Answer,
-					  tags     : Tag,
 					  comments : Comment,
 	   				  badges   : Badge]
 }

@@ -173,13 +173,13 @@ class QuestionController {
     @Transactional
     def voteUp(Question question) {
         vote(question, 1);
-        log.info "Vote up - Answer " + answer.id
+        log.info "Vote up - Question " + question.id
     }
 
     @Transactional
     def voteDown(Question question) {
         vote(question, -1);
-        log.info "Vote down - Answer " + answer.id
+        log.info "Vote down - Question " + question.id
     }
 
     def vote(Question question, int value) {

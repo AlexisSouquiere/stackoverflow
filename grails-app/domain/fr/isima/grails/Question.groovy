@@ -28,6 +28,7 @@ class Question {
     static mapping = {
         autoTimestamp true
         comments sort: 'dateCreated'
+        answers sort: 'rate', order: 'desc'
         rate defaultValue: "0"
     }
 
