@@ -23,10 +23,10 @@
                     <!-- Actions bar -->
                     <div class="actions-bar">
                         <!-- Edit -->
-                        <g:link resource="/question" action="edit" id="${question.id}"><g:message
+                        <g:link resource="/answer" action="edit" id="${item.id}"><g:message
                                 code="question.show.edit"/></g:link>
                         <!-- Delete -->
-                        <g:form controller="question" id="${question.id}" method="DELETE">
+                        <g:form controller="answer" id="${item.id}" method="DELETE">
                             <g:actionSubmit action="delete" value="${message(code: 'question.show.delete')}"/>
                         </g:form>
                     </div>

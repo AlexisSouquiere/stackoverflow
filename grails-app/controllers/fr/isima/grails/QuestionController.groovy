@@ -171,24 +171,6 @@ class QuestionController {
     }
 
     @Transactional
-    def addAnswer(Answer answer) {
-        answer.user = springSecurityService.currentUser
-        answer.rate = 0
-        if (answer.save(flush: true, failOnError: true)) {
-            //Hook : Question created
-            hookService.manageHook(EnumHook.ANSWER_CREATED, springSecurityService.currentUser)
-
-            request.withFormat {
-                form multipartForm {
-                    flash.message = message(code: 'default.created.message', args: [message(code: 'answer.label', default: 'Answer')])
-                    redirect action: "show", id: answer.question.id, model: [question: answer.question]
-                }
-                '*' { respond answer.question, [status: UPDATED] }
-            }
-        }
-    }
-
-    @Transactional
     def voteUp(Question question) {
         vote(question, 1);
         log.info "Vote up - Answer " + answer.id
