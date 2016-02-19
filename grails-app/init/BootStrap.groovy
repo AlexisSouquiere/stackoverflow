@@ -23,8 +23,8 @@ class BootStrap {
         }
 
         // Init badges
-        Badge badgeFirstQuestion = new Badge(['id': EnumBadge.FIRST_QUESTION.id, 'name': 'First Question !', 'description': 'Congratulation'])
-        Badge badgeFirstAnswer = new Badge(['id': EnumBadge.FIRST_ANSWER.id, 'name': 'First Answer !', 'description': 'Congratulation'])
+        Badge badgeFirstQuestion = new Badge(['id': EnumBadge.FIRST_QUESTION.id, 'name': 'First Question !', 'description': 'Awarded when you ask your first question.'])
+        Badge badgeFirstAnswer = new Badge(['id': EnumBadge.FIRST_ANSWER.id, 'name': 'First Answer !', 'description': 'Awarded when you post your first answer.'])
         badgeFirstQuestion.save(flush: true)
         badgeFirstAnswer.save(flush: true)
 

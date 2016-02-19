@@ -29,6 +29,7 @@ class CommentController {
 
         if (comment.hasErrors()) {
             transactionStatus.setRollbackOnly()
+            log.error "Comment contains errors"
             respond comment.errors, view: 'create'
             return
         }
@@ -36,6 +37,7 @@ class CommentController {
         if (comment.save(flush: true, failOnError: true)) {
             flash.message = message(code: 'default.created.message', args: [message(code: 'comment.label', default: 'Comment'), comment.id])
         } else {
+            log.error "Error occurred during saving comment"
             flash.error = message(code: 'default.error.created.message', args: [message(code: 'comment.label', default: 'Comment'), comment.id])
         }
 
@@ -44,6 +46,7 @@ class CommentController {
     }
 
     protected void notFound() {
+        log.info "Comment not found, rollback"
         request.withFormat {
             form multipartForm {
                 flash.error = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])

@@ -20,19 +20,22 @@ class UserController extends grails.plugin.springsecurity.ui.UserController {
     def edit() {
         def user = springSecurityService.currentUser
 
-        if(!SpringSecurityUtils.ifAllGranted('ROLE_ADMIN') && user.id != params.id.toLong())
+        if(!SpringSecurityUtils.ifAllGranted('ROLE_ADMIN') && user.id != params.id.toLong()) {
+            log.error "Access denied to question edit"
             redirect controller: "login", action: "denied"
+        }
 
         super.edit();
     }
 
     protected void notFound() {
-            request.withFormat {
-                form multipartForm {
-                    flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
-                    redirect action: "index", method: "GET"
-                }
-                '*' { render status: NOT_FOUND }
+        log.info "User not found"
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+                redirect action: "index", method: "GET"
             }
+            '*' { render status: NOT_FOUND }
         }
+    }
 }

@@ -66,6 +66,7 @@ class QuestionController {
         if (question.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond question.errors, view: 'create'
+            log.error "Question contains errors"
             return
         }
 
@@ -81,6 +82,7 @@ class QuestionController {
                 '*' { respond question, [status: CREATED] }
             }
         } else {
+            log.error "Error occurred during saving question"
             redirect action: create, model: [question: question]
         }
     }
@@ -89,8 +91,10 @@ class QuestionController {
     def edit(Question question) {
         def user = springSecurityService.currentUser
 
-        if(!SpringSecurityUtils.ifAllGranted('ROLE_ADMIN') && user.id != question.userId)
+        if(!SpringSecurityUtils.ifAllGranted('ROLE_ADMIN') && user.id != question.userId) {
+            log.error "Access denied to question edit"
             redirect controller: "login", action: "denied"
+        }
 
         respond question, model : [allTags: Tag.listOrderByLabel(),
                                    selectedTags: question.tags]
@@ -107,6 +111,7 @@ class QuestionController {
         if (question.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond question.errors, view: 'edit'
+            log.error "Question contains errors"
             return
         }
 
@@ -160,6 +165,7 @@ class QuestionController {
                 '*' { respond question, [status: UPDATED] }
             }
         } else {
+            log.error "Error occurred during closing question"
             redirect action: show, model: [question: question]
         }
     }
@@ -185,11 +191,13 @@ class QuestionController {
     @Transactional
     def voteUp(Question question) {
         vote(question, 1);
+        log.info "Vote up - Answer " + answer.id
     }
 
     @Transactional
     def voteDown(Question question) {
         vote(question, -1);
+        log.info "Vote down - Answer " + answer.id
     }
 
     def vote(Question question, int value) {
@@ -210,11 +218,13 @@ class QuestionController {
                 '*' { respond question, [status: UPDATED] }
             }
         } else {
+            log.error "An error occurred during vote for question " + answer.id
             redirect action: show, model: [question: question]
         }
     }
 
     protected void notFound() {
+        log.info "Question not found, rollback"
         request.withFormat {
             form multipartForm {
                 flash.error = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])

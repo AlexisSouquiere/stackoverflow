@@ -35,6 +35,7 @@ class AnswerController {
         if (answer.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond answer.errors, view: 'edit'
+            log.error "Answer contains errors"
             return
         }
 
@@ -87,11 +88,13 @@ class AnswerController {
     @Transactional
     def voteUp(Answer answer) {
         vote(answer, 1);
+        log.info "Vote up - Answer " + answer.id
     }
 
     @Transactional
     def voteDown(Answer answer) {
         vote(answer, -1);
+        log.info "Vote down - Answer " + answer.id
     }
 
     def vote(Answer answer, int value) {
@@ -112,11 +115,13 @@ class AnswerController {
                 '*' { respond answer, [status: UPDATED] }
             }
         } else {
+            log.error "An error occurred during vote for answer " + answer.id
             redirect action: show, model: [answer: answer]
         }
     }
 
     protected void notFound() {
+        log.info "Answer not found, rollback"
         request.withFormat {
             form multipartForm {
                 flash.error = message(code: 'default.not.found.message', args: [message(code: 'answer.label', default: 'Answer'), params.id])
