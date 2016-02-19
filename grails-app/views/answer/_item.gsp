@@ -5,6 +5,14 @@
         <strong class="rate">${item.rate}</strong>
         <g:actionSubmitImage value="${message(code: 'question.vote.down')}" action="voteDown" src="${resource(dir: '/assets/stackoverflow', file: 'arrow.png')}" class="arrow-down"/>
     </g:form>
+    <g:if test="${item.isBest}">
+        <asset:image src="/stackoverflow/check.png" class="check"/>
+    </g:if>
+    <g:if test="${sec.loggedInUserInfo(field: 'id').toLong() == item.user.id && !item.question.isClosed && !item.question.hasBest}">
+        <g:form controller="answer" id="${item.id}" method="PUT">
+            <g:actionSubmitImage value="${message(code: 'answer.isbest')}" action="selectAsTheBest" src="${resource(dir: '/assets/stackoverflow', file: 'check-grey.png')}" class="check-disabled"/>
+        </g:form>
+    </g:if>
 </div>
 <!-- /Rate bloc -->
 

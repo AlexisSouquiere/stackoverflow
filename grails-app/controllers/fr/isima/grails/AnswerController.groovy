@@ -9,16 +9,14 @@ import static org.springframework.http.HttpStatus.*
 @Transactional(readOnly = true)
 class AnswerController {
 
-    static allowedMethods = [save     : "POST",
-                             update   : "PUT",
-                             delete   : "DELETE",
-                             show     : "GET",
-                             edit     : "GET",
-                             close    : "PUT",
+    static allowedMethods = [save               : "POST",
+                             update             : "PUT",
+                             delete             : "DELETE",
+                             edit               : "GET",
 
-                             addAnswer: "POST",
-                             voteUp   : "PUT",
-                             VoteDown : "PUT"
+                             selectAsTheBest    : "PUT",
+                             voteUp             : "PUT",
+                             VoteDown           : "PUT"
     ]
 
     def springSecurityService
@@ -61,6 +59,25 @@ class AnswerController {
     }
 
     @Transactional
+    def selectAsTheBest(Answer answer) {
+        if (answer == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        answer.isBest = true
+        answer.save flush: true
+
+        request.withFormat {
+            form multipartForm {
+                redirect controller: 'question', action: "show", id: answer.question.id, model: [question: answer.question]
+            }
+            '*' { respond answer.question, [status: UPDATED] }
+        }
+    }
+
+    @Transactional
     def update(Answer answer) {
         if (answer == null) {
             transactionStatus.setRollbackOnly()
@@ -79,7 +96,7 @@ class AnswerController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'answer.label', default: 'Answer')])
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'answer.label', default: 'Answer')])
                 redirect controller: 'question', action: "show", id: answer.question.id, model: [question: answer.question]
             }
             '*' { respond answer.question, [status: UPDATED] }

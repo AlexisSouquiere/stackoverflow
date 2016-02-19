@@ -31,4 +31,13 @@ $( document ).ready(function() {
         $(event.target).hide(); //.add-comment concerned
         $(event.target).parent().find('.comment-form').show(); //.comment-form concerned
     });
+
+    /* Display the button for select the best answer
+    $('.answer').mouseenter(function(event){
+        $(event.target).find('.check-disabled').css('visibility', 'visible');
+    });
+
+    $('.answer').mouseout(function(event){
+        $(event.target).find('.check-disabled').css('visibility', 'hidden');
+    });*/
 });

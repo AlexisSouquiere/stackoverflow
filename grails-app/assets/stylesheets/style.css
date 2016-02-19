@@ -86,8 +86,17 @@ body {
 }
 
 .check {
-    margin-left: 23px;
-    margin-top: 25px;
+    margin-left: 36px;
+    margin-top: 10px;
+}
+
+.check-disabled {
+    margin-top: 10px;
+    visibility: hidden;
+}
+
+.answer:hover .check-disabled {
+    visibility: visible;
 }
 
 .tags-bar {

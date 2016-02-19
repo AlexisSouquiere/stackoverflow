@@ -30,7 +30,7 @@
 
             <!-- Answers -->
             <g:each var="answer" in="${question.answers}">
-                <div class="row">
+                <div class="row answer">
                     <hr/>
                     <g:render template="/answer/item" model="${[item: answer]}"/>
                 </div>

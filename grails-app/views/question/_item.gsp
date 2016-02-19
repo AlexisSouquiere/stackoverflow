@@ -5,9 +5,6 @@
         <strong class="rate">${question.rate}</strong>
         <g:actionSubmitImage value="${message(code: 'question.vote.down')}" action="voteDown" src="${resource(dir: '/assets/stackoverflow', file: 'arrow.png')}" class="arrow-down"/>
     </g:form>
-    <g:if test="${question.getHasBest()}">
-        <asset:image src="/stackoverflow/check.png" class="check"/>
-    </g:if>
 </div>
 <!-- /Rate bloc -->
 
